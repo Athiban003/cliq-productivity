@@ -4,19 +4,19 @@ const controlBot = async (req, res) => {
   console.log("Received payload:", req.body);
 
   const text = req.body.command || "";
-  if (text.startsWith("add")) {
-    const taskText = text.replace("add", "").trim();
+  // if (text.startsWith("add")) {
+  //   const taskText = text.replace("add", "").trim();
 
-    await Task.create({ text: taskText });
+  //   await Task.create({ text: taskText });
 
-    return res.json({
-      message: `✔ Task added: ${taskText}`,
-    });
-  }
-
-  return res.json({
-    message: "Unknown command. Try: /task add Buy milk",
+  return res.status(200).json({
+    message: `✔ Task added: ${text}`,
   });
+  // }
+
+  // return res.json({
+  //   message: "Unknown command. Try: /task add Buy milk",
+  // });
 };
 
 module.exports = controlBot;
