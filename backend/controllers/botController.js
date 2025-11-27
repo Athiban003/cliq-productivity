@@ -1,18 +1,22 @@
 const Task = require("../models/Task.js");
 
 const controlBot = async (req, res) => {
-  const text = req.body.text || "";
+  console.log("Received payload:", req.body);
 
-  if (text.startsWith("addtask")) {
-    const taskText = text.replace("addtask", "").trim();
+  const text = req.body.command || "";
+  if (text.startsWith("add")) {
+    const taskText = text.replace("add", "").trim();
+
     await Task.create({ text: taskText });
 
     return res.json({
-      text: `✔ Task added: ${taskText}`,
+      message: `✔ Task added: ${taskText}`,
     });
   }
 
-  res.json({ text: "Unknown command" });
+  return res.json({
+    message: "Unknown command. Try: /task add Buy milk",
+  });
 };
 
 module.exports = controlBot;
