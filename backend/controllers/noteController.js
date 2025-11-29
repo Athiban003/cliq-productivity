@@ -46,6 +46,7 @@ exports.startRecording = async (req, res) => {
 exports.handleIncomingMessage = async (req, res) => {
   try {
     const { channel_id, user_id, user_name, text } = req.body;
+    console.log("Received:", req.body);
 
     // Only capture if a session exists
     if (!activeSessions[channel_id]) {
