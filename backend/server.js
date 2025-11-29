@@ -1,20 +1,23 @@
-require("dotenv").config();
+const config = require("./config/config");
+
 const express = require("express");
 const server = express();
+
 const cors = require("cors");
 const connectDb = require("./config/db");
 connectDb();
 
-const PORT = process.env.PORT || 3000;
+const PORT = config.port.port || 3000;
 
-const taskRoutes = require("./routes/taskRoutes");
 const botRoutes = require("./routes/botRoutes");
+const noteRoutes = require("./routes/noteRoutes");
 
 server.use(cors());
 server.use(express.json());
 
-server.use("/api/tasks", taskRoutes);
 server.use("/webhook", botRoutes);
+// server.use("/task");
+server.use("/notes", noteRoutes);
 
 server.use((req, res, next) => {
   res.status(404).json({
